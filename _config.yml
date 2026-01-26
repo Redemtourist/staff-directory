@@ -1,1 +1,7 @@
+title: Onward Oil & Gas Limited – Staff Directory
+markdown: kramdown
 
+collections:
+  staff:
+    output: true
+    permalink: /staff/:name/
