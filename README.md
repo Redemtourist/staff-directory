@@ -1,1 +1,1 @@
-# onward-staff-directory
+# staff-directory
