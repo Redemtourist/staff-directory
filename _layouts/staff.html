@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ page.name }} | Profile</title>
+  <title>{{ page.name }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <main class="container">
-    <h1>{{ page.name }}</h1>
-    <p class="role">{{ page.role }}</p>
+  <div class="center-wrapper">
+    <div class="card">
+      <h1>{{ page.name }}</h1>
 
-    {% if page.location %}
-    <p><strong>Location:</strong> {{ page.location }}</p>
-    {% endif %}
-
-    {{ content }}
-
-    <p><a href="/">← Back to Directory</a></p>
-  </main>
+      {% if page.location %}
+      <p class="location">{{ page.location }}</p>
+      {% endif %}
+    </div>
+  </div>
 </body>
 </html>
