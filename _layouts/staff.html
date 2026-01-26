@@ -1,1 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.name }} | Profile</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>{{ page.name }}</h1>
+    <p class="role">{{ page.role }}</p>
 
+    {% if page.location %}
+    <p><strong>Location:</strong> {{ page.location }}</p>
+    {% endif %}
+
+    {{ content }}
+
+    <p><a href="/">← Back to Directory</a></p>
+  </main>
+</body>
+</html>
