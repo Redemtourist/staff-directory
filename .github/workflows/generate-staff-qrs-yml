@@ -27,7 +27,7 @@ jobs:
           python - <<EOF
           import qrcode, os
 
-          base_url = "https://YOURUSERNAME.github.io/REPO-NAME/staff/"
+          base_url = "https://redemptourist.github.io/staff-directory/staff/"
 
           for file in os.listdir("_staff"):
               if file.endswith(".md"):
