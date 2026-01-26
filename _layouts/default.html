@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ site.title }}</title>
+  <title>{{ page.name }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <main class="container">
-    {{ content }}
-  </main>
+  <div class="page-center">
+    <div class="glass-box">
+      <h1>{{ page.name }}</h1>
+
+      {% if page.location %}
+      <p class="location">{{ page.location }}</p>
+      {% endif %}
+    </div>
+  </div>
 </body>
 </html>
