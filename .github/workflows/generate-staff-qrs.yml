@@ -1,1 +1,48 @@
+name: Generate Staff QR Codes
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "_staff/**"
+
+jobs:
+  generate-qrs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install QR library
+        run: pip install qrcode[pil]
+
+      - name: Generate QR codes
+        run: |
+          mkdir -p assets/qr
+          python - <<EOF
+          import qrcode, os
+
+          base_url = "https://redemptourist.github.io/staff-directory/staff/"
+
+          for file in os.listdir("_staff"):
+              if file.endswith(".md"):
+                  slug = file.replace(".md", "")
+                  url = base_url + slug + "/"
+                  img = qrcode.make(url)
+                  img.save(f"assets/qr/{slug}.png")
+                  print(f"Generated QR for {slug}")
+          EOF
+
+      - name: Commit QR codes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add assets/qr
+          git commit -m "Auto-generate staff QR codes"
+          git push
 
