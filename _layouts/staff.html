@@ -6,20 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
 </head>
+  <div class="qr-container" style="margin-top:20px; text-align:center;">
+    <div id="qrcode"></div>
+    <button onclick="downloadQR()" style="margin-top:10px;">Download QR</button>
+  </div>
+  
 <body>
   <div class="page-center">
     <div class="glass-box">
       <h1>{{ page.name }}</h1>
-
       {% if page.location %}
       <p class="location">{{ page.location }}</p>
       {% endif %}
     </div>
   </div>
-  <div class="qr-container" style="margin-top:20px; text-align:center;">
-    <div id="qrcode"></div>
-    <button onclick="downloadQR()" style="margin-top:10px;">Download QR</button>
-  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
   // Generate QR code for this page URL
