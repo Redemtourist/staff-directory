@@ -7,6 +7,8 @@ on:
     paths:
       - "_staff/**"
 
+  workflow_dispatch:
+  
 jobs:
   generate-qrs:
     runs-on: ubuntu-latest
