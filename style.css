@@ -88,3 +88,20 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+#qrcode img {
+  width: 180px;      /* visual size */
+  height: 180px;
+  image-rendering: crisp-edges;
+}
+.qr-wrapper {
+  background: #f5f7fa;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
