@@ -24,9 +24,11 @@ jobs:
         run: |
           mkdir -p assets/qr
           for file in _staff/*.md; do
+            [ -e "$file" ] || continue
             slug=$(basename "$file" .md)
             url="https://redemptourist.github.io/staff-directory/staff/$slug/"
-            qrencode -o "assets/qr/$slug.png" "$url"
+            echo "Generating QR for $url"
+            qrencode -t PNG -s 10 -o "assets/qr/$slug.png" "$url"
           done
 
       - name: Commit and push QR codes
