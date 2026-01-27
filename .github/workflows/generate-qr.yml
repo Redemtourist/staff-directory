@@ -1,55 +1,61 @@
-name: Generate Staff QR Codes
+name: Generate QR Codes
 
 on:
   push:
     branches:
       - main
-    paths:
-      - "_staff/**"
-
-  workflow_dispatch:
+  workflow_dispatch:  # allow manual trigger
 
 jobs:
-  generate-qrs:
+  generate-qr:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # needed for branch switching
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.x'
 
-      - name: Install QR library
+      - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install qrcode[pil]
 
       - name: Generate QR codes
         run: |
-          python - <<EOF
-          import os
-          import qrcode
+          mkdir -p assets/qr
+          for file in _staff/*.md; do
+            filename=$(basename "$file" .md)
+            url="https://redemptourist.github.io/staff-directory/staff/$filename/"
+            python - <<EOF
+import qrcode
+img = qrcode.make("$url")
+img.save("assets/qr/${filename}.png")
+EOF
+          done
 
-          base_url = "https://redemptourist.github.io/staff-directory/staff/"
-          staff_dir = "_staff"
-          qr_dir = "assets/qr"
-
-          os.makedirs(qr_dir, exist_ok=True)
-
-          for file in os.listdir(staff_dir):
-              if file.endswith(".md"):
-                  slug = file.replace(".md", "")
-                  url = base_url + slug + "/"
-                  img = qrcode.make(url)
-                  img.save(f"{qr_dir}/{slug}.png")
-          EOF
-
-      - name: Commit QR codes
+      - name: Commit QR images to qr-images branch
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Switch to qr-images branch (create if missing)
+          if git show-ref --verify --quiet refs/heads/qr-images; then
+            git checkout qr-images
+          else
+            git checkout --orphan qr-images
+            git rm -rf .
+          fi
+
+          # Copy QR images into branch
+          mkdir -p assets/qr
+          cp -r assets/qr/* ./assets/qr/
+
           git add assets/qr
-          git commit -m "Auto-generate staff QR codes" || echo "No changes"
-          git push
+          git commit -m "Update QR codes"
+          git push origin qr-images --force
