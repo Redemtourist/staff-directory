@@ -19,6 +19,26 @@
   <div class="qr-container" style="margin-top:20px; text-align:center;">
     <div id="qrcode"></div>
     <button onclick="downloadQR()" style="margin-top:10px;">Download QR</button>
-  </div> 
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+  // Generate QR code for this page URL
+  var qrcode = new QRCode(document.getElementById("qrcode"), {
+    text: window.location.href,
+    width: 160,
+    height: 160,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+  });
+
+  // Optional: make QR downloadable
+  function downloadQR() {
+    var img = document.querySelector('#qrcode img').src;
+    var link = document.createElement('a');
+    link.href = img;
+    link.download = 'qr-code.png';
+    link.click();
+  }
+</script>
 </body>
 </html>
