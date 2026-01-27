@@ -20,6 +20,21 @@
     <button onclick="downloadQR()">Download QR Code</button>
   </div>
 
+  <script>
+function downloadQR() {
+  const canvas = document.getElementById("staffQR");
+  if (!canvas) return;
+
+  const staffSlug = "{{ page.url | split: '/' | last }}".replace("/", "") || "staff";
+
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = staffSlug + "-qr-code.png";
+  link.click();
+}
+</script>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <script>
