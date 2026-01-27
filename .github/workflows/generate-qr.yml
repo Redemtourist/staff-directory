@@ -8,48 +8,48 @@ on:
       - "_staff/**"
 
   workflow_dispatch:
-  
+
 jobs:
   generate-qrs:
     runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout repo
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-  - name: Set up Python
-    uses: actions/setup-python@v5
-    with:
-      python-version: "3.11"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-  - name: Install QR library
-    run: |
-      pip install qrcode[pil]
+      - name: Install QR library
+        run: |
+          pip install qrcode[pil]
 
-  - name: Generate QR codes
-    run: |
-      python - <<EOF
-      import os
-      import qrcode
+      - name: Generate QR codes
+        run: |
+          python - <<EOF
+          import os
+          import qrcode
 
-      base_url = "https://redemptourist.github.io/staff-directory/staff/"
-      staff_dir = "_staff"
-      qr_dir = "assets/qr"
+          base_url = "https://redemptourist.github.io/staff-directory/staff/"
+          staff_dir = "_staff"
+          qr_dir = "assets/qr"
 
-      os.makedirs(qr_dir, exist_ok=True)
+          os.makedirs(qr_dir, exist_ok=True)
 
-      for file in os.listdir(staff_dir):
-          if file.endswith(".md"):
-              slug = file.replace(".md", "")
-              url = base_url + slug + "/"
-              img = qrcode.make(url)
-              img.save(f"{qr_dir}/{slug}.png")
-      EOF
+          for file in os.listdir(staff_dir):
+              if file.endswith(".md"):
+                  slug = file.replace(".md", "")
+                  url = base_url + slug + "/"
+                  img = qrcode.make(url)
+                  img.save(f"{qr_dir}/{slug}.png")
+          EOF
 
-  - name: Commit QR codes
-    run: |
-      git config user.name "github-actions"
-      git config user.email "github-actions@github.com"
-      git add assets/qr
-      git commit -m "Auto-generate staff QR codes" || echo "No changes"
-      git push
+      - name: Commit QR codes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add assets/qr
+          git commit -m "Auto-generate staff QR codes" || echo "No changes"
+          git push
