@@ -13,6 +13,13 @@
       {% if page.location %}
       <p class="location">{{ page.location }}</p>
       {% endif %}
+
+      {% if page.date %}
+        <p class="date">
+          {{ page.date | date: "%d %B %Y" }}
+        </p>
+      {% endif %}
+
     </div>
   </div>
 
