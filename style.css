@@ -166,4 +166,26 @@ body {
   display: flex;
   justify-content: center;
 }
+/* ===== QR RESPONSIVE LOCK ===== */
+.qr-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#qrcode {
+  max-width: 100%;
+}
+
+#qrcode img {
+  width: 100%;
+  max-width: 180px;   /* desktop/tablet */
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  #qrcode img {
+    max-width: 130px; /* phone */
+  }
+}
 
