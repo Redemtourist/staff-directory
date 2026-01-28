@@ -121,5 +121,31 @@ body {
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
+:root {
+  --staff-accent: #4a6cf7; /* fallback */
+}
+
+.glass-box {
+  border: 2px solid var(--staff-accent);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--staff-accent), transparent 75%);
+}
+
+.glass-box h1 {
+  color: var(--staff-accent);
+}
+
+.date {
+  color: color-mix(in srgb, var(--staff-accent), #000 40%);
+}
+
+.qr-wrapper button {
+  background: var(--staff-accent);
+  color: #fff;
+  border: none;
+}
+
+.qr-wrapper button:hover {
+  filter: brightness(1.1);
+}
 
 
