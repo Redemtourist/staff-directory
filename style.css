@@ -148,4 +148,15 @@ body {
   filter: brightness(1.1);
 }
 
+/* QR responsiveness fix */
+#qrcode img {
+  max-width: 180px;     /* desktop size */
+  width: 100%;
+  height: auto;
+}
 
+@media (max-width: 600px) {
+  #qrcode img {
+    max-width: 140px;   /* phone size */
+  }
+}
