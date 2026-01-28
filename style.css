@@ -54,6 +54,12 @@ body {
   color: rgba(255, 255, 255, 0.9);
 }
 
+.glass-box .date {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 6px;
+}
+
 .qr-container {
   display: inline-block;
   padding: 20px;
