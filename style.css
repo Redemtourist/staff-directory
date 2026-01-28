@@ -1,57 +1,16 @@
-* {
-  box-sizing: border-box;
+:root {
+  --staff-accent: #4a6cf7;
 }
 
-body {
-  margin: 0;
-  height: 100vh;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: radial-gradient(
-      circle at top,
-      rgba(255, 255, 255, 0.08),
-      transparent 60%
-    ),
-    linear-gradient(135deg, #0b1f2a, #0f3d4c);
-}
-
-/* Full-page centering */
-.page-center {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-/* Glass / mirrored box */
+/* Accent styling */
 .glass-box {
-  max-width: 650px;
-  width: 100%;
-  padding: 55px 45px;
-  text-align: center;
-  border-radius: 18px;
-
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--staff-accent);
+  box-shadow: 0 10px 30px
+    color-mix(in srgb, var(--staff-accent), transparent 75%);
 }
 
 .glass-box h1 {
-  margin: 0 0 22px;
-  font-size: 30px;
-  letter-spacing: 0.8px;
-  color: #ffffff;
-}
-
-.location {
-  font-size: 18px;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--staff-accent);
 }
 
 .glass-box .date {
@@ -60,46 +19,29 @@ body {
   margin-top: 6px;
 }
 
-
-.qr-container {
-  display: inline-block;
-  padding: 20px;
-  background-color: #f0f0f0; /* light boxed background */
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  margin-top: 20px;
+/* QR layout */
+.qr-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-.qr-container button {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 8px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
+#qrcode {
+  max-width: 100%;
 }
 
-.qr-container button:hover {
-  background-color: #0056b3;
-}
-
-#staffQR {
-  width: 180px;        /* visual size */
+#qrcode img {
+  width: 100%;
+  max-width: 180px;   /* desktop */
   height: auto;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-:root {
-  --staff-accent: #4a6cf7; /* fallback */
 }
 
-.glass-box {
-  border: 2px solid var(--staff-accent);
-  box-shadow: 0 10px 30px color-mix(in srgb, var(--staff-accent), transparent 75%);
-}
-
-.glass-box h1 {
-  color: var(--staff-accent);
+/* Mobile */
+@media (max-width: 480px) {
+  #qrcode img {
+    max-width: 130px;
+  }
 }
 
 .qr-wrapper button {
@@ -111,51 +53,3 @@ body {
 .qr-wrapper button:hover {
   filter: brightness(1.1);
 }
-
-/* QR responsiveness fix */
-#qrcode img {
-  max-width: 180px;     /* desktop size */
-  width: 100%;
-  height: auto;
-}
-
-@media (max-width: 600px) {
-  #qrcode img {
-    max-width: 140px;   /* phone size */
-  }
-}
-
-.qr-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-/* ===== QR RESPONSIVE LOCK ===== */
-.qr-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-#qrcode {
-  max-width: 100%;
-}
-
-#qrcode img {
-  width: 100%;
-  max-width: 180px;   /* desktop/tablet */
-  height: auto;
-}
-
-@media (max-width: 480px) {
-  #qrcode img {
-    max-width: 130px; /* phone */
-  }
-}
-
-
-
-.date {
-  color: color-mix(in srgb, var(--staff-accent), #000 40%);
-}
-
