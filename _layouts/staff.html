@@ -8,8 +8,6 @@
 </head>
 
   <body data-slug="{{ page.url | split: '/' | last | replace: '/', '' }}">
-
-<body>
   <div class="page-center">
     <div class="glass-box">
       <h1>{{ page.name }}</h1>
@@ -34,11 +32,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
-  const qrSize = 600;
+  const isMobile = window.innerWidth <= 480;
+  const qrSize = isMobile ? 260 : 600; // 👈 FIXES BIG QR ON MOBILE
 
   const staffSlug = "{{ page.url | split: '/' | last | replace: '/', '' }}";
-  const staffName = "{{ page.name }}";
-
   const qrContainer = document.getElementById("qrcode");
 
   const qr = new QRCode(qrContainer, {
@@ -56,10 +53,14 @@
 
     const link = document.createElement("a");
     link.href = img.src;
-    link.download = staffSlug + "-qr-code.png";
+    link.download = staffSlug + "-qr.png";
     link.click();
   }
 </script>
+
+
+
+    
   <script>
 (function () {
   const slug = document.body.dataset.slug;
