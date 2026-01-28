@@ -5,7 +5,10 @@
   <title>{{ page.name }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
-</head> 
+</head>
+
+  <body data-slug="{{ page.url | split: '/' | last | replace: '/', '' }}">
+
 <body>
   <div class="page-center">
     <div class="glass-box">
@@ -57,3 +60,24 @@
     link.click();
   }
 </script>
+  <script>
+(function () {
+  const slug = document.body.dataset.slug;
+  if (!slug) return;
+
+  // Simple hash → color
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = slug.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  const hue = Math.abs(hash) % 360;
+
+  document.documentElement.style.setProperty(
+    "--staff-accent",
+    `hsl(${hue}, 65%, 45%)`
+  );
+})();
+</script>
+
+</body>
