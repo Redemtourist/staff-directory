@@ -15,50 +15,38 @@
       {% endif %}
     </div>
   </div>
+
   <div class="qr-wrapper">
-    <div id="qrcode"></div>
-    <button onclick="downloadQR()">Download QR Code</button>
-  </div>
+  <div id="qrcode"></div>
+  <button onclick="downloadQR()">Download QR Code</button>
+</div>
 
-
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-  <script>
-    const qrSize = 600; // HD resolution
-  
-    const qrcode = new QRCode(document.getElementById("qrcode"), {
-      text: window.location.href,
-      width: qrSize,
-      height: qrSize,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  
-    function downloadQR() {
-      const img = document.querySelector("#qrcode img");
-      const link = document.createElement("a");
-      link.href = img.src;
-      link.download = "qr-code.png";
-      link.click();
-    }
-  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
+  const qrSize = 600;
+
+  const staffSlug = "{{ page.url | split: '/' | last | replace: '/', '' }}";
+  const staffName = "{{ page.name }}";
+
+  const qrContainer = document.getElementById("qrcode");
+
+  const qr = new QRCode(qrContainer, {
+    text: window.location.href,
+    width: qrSize,
+    height: qrSize,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
   function downloadQR() {
-    const canvas = document.getElementById("staffQR");
-    if (!canvas) return;
-  
-    const staffSlug = "{{ page.url | split: '/' | last }}".replace("/", "") || "staff";
-  
+    const img = qrContainer.querySelector("img");
+    if (!img) return;
+
     const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
+    link.href = img.src;
     link.download = staffSlug + "-qr-code.png";
     link.click();
   }
 </script>
-</body>
-</html>
-
