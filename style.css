@@ -119,10 +119,11 @@ body {
 ================================ */
 @media (max-width: 480px) {
 
-  .page-center {
-    min-height: auto;
-    padding: 16px;
-  }
+.page-center {
+  min-height: 100vh; /* force full screen on mobile */
+  padding: 16px;
+}
+
 
   .glass-box {
     padding: 32px 22px;
@@ -142,9 +143,10 @@ body {
     font-size: 0.8rem;
   }
 
-  .qr-wrapper {
-    margin-top: 18px;
-  }
+.qr-wrapper {
+  margin-top: auto;
+}
+
 
   #qrcode img {
     max-width: 130px; /* phone QR size */
