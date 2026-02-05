@@ -4,22 +4,27 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '_staff/**'  # Add this to only run when staff files change
   workflow_dispatch:  # allow manual trigger
 
 jobs:
   generate-qr:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # ADD THIS - required for pushing
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # ADD THIS
           fetch-depth: 0  # needed for branch switching
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.10'  # Changed from '3.x' to specific version
 
       - name: Install dependencies
         run: |
@@ -29,13 +34,16 @@ jobs:
       - name: Generate QR codes
         run: |
           mkdir -p assets/qr
+          # Add nullglob to handle empty directory
+          shopt -s nullglob
           for file in _staff/*.md; do
             filename=$(basename "$file" .md)
             url="https://redemptourist.github.io/staff-directory/staff/$filename/"
-            python - <<EOF
+            python3 - <<EOF
 import qrcode
 img = qrcode.make("$url")
 img.save("assets/qr/${filename}.png")
+print(f"Generated QR for: {filename}")
 EOF
           done
 
@@ -47,15 +55,25 @@ EOF
           # Switch to qr-images branch (create if missing)
           if git show-ref --verify --quiet refs/heads/qr-images; then
             git checkout qr-images
+            git pull origin qr-images || true
           else
             git checkout --orphan qr-images
-            git rm -rf .
+            # Don't delete everything - just clear the index
+            git rm -rf --cached . 2>/dev/null || true
           fi
 
-          # Copy QR images into branch
+          # Copy QR images into branch (from the workspace)
           mkdir -p assets/qr
-          cp -r assets/qr/* ./assets/qr/
+          # The QR codes are in the workspace directory
+          WORKSPACE_PATH="${GITHUB_WORKSPACE}/assets/qr"
+          if [ -d "$WORKSPACE_PATH" ]; then
+            cp -r "$WORKSPACE_PATH"/* ./assets/qr/ 2>/dev/null || true
+          fi
 
           git add assets/qr
-          git commit -m "Update QR codes"
-          git push origin qr-images --force
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update QR codes"
+            git push origin qr-images --force
+          fi
