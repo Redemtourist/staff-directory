@@ -5,75 +5,50 @@ on:
     branches:
       - main
     paths:
-      - '_staff/**'  # Add this to only run when staff files change
-  workflow_dispatch:  # allow manual trigger
+      - '_staff/**'
+  workflow_dispatch:
 
 jobs:
   generate-qr:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # ADD THIS - required for pushing
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # ADD THIS
-          fetch-depth: 0  # needed for branch switching
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'  # Changed from '3.x' to specific version
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install qrcode[pil]
 
       - name: Generate QR codes
         run: |
           mkdir -p assets/qr
-          # Add nullglob to handle empty directory
-          shopt -s nullglob
           for file in _staff/*.md; do
             filename=$(basename "$file" .md)
             url="https://redemptourist.github.io/staff-directory/staff/$filename/"
-            python3 - <<EOF
+            python3 -c "
 import qrcode
-img = qrcode.make("$url")
-img.save("assets/qr/${filename}.png")
-print(f"Generated QR for: {filename}")
-EOF
+img = qrcode.make('$url')
+img.save('assets/qr/${filename}.png')
+print('Generated QR for: $filename')
+"
           done
 
-      - name: Commit QR images to qr-images branch
+      - name: Commit QR codes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Switch to qr-images branch (create if missing)
-          if git show-ref --verify --quiet refs/heads/qr-images; then
-            git checkout qr-images
-            git pull origin qr-images || true
-          else
-            git checkout --orphan qr-images
-            # Don't delete everything - just clear the index
-            git rm -rf --cached . 2>/dev/null || true
-          fi
-
-          # Copy QR images into branch (from the workspace)
-          mkdir -p assets/qr
-          # The QR codes are in the workspace directory
-          WORKSPACE_PATH="${GITHUB_WORKSPACE}/assets/qr"
-          if [ -d "$WORKSPACE_PATH" ]; then
-            cp -r "$WORKSPACE_PATH"/* ./assets/qr/ 2>/dev/null || true
-          fi
-
-          git add assets/qr
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/qr/
+          if ! git diff --cached --quiet; then
             git commit -m "Update QR codes"
-            git push origin qr-images --force
+            git push
           fi
