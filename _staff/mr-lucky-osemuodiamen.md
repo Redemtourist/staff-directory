@@ -1,5 +1,5 @@
 ---
 layout: staff
 name: Mr. Lucky Osemuodiamen.
-location: Ogah, Rivers State, Nigeria.
+location: Owhipa-Choba, Rivers State, Nigeria.
 ---
