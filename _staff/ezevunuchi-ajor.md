@@ -1,5 +1,5 @@
 ---
 layout: staff
 name: Ezevunuchi Ajor.
-Location: Aluu  Ikwerre, Rivers State, Nigeria.
+location: Aluu  Ikwerre, Rivers State, Nigeria.
 ---
