@@ -1,5 +1,5 @@
 ---
 layout: staff
-name: Obioha Okporo.
+name: Obioha Obioha Okoro.
 location: Ejuan Community, Rivers State, Nigeria.
 ---
