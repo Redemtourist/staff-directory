@@ -1,5 +1,5 @@
 ---
 layout: staff
-name: Adivinus AAron.
+name: Adivinus AAron
 location: Atali Town, Rivers State, Nigeria.
 ---
