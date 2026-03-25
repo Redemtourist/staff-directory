@@ -1,5 +1,5 @@
 ---
 layout: staff
 name: Berebupakabo Isaac Sekibo
-location: atali
+location: 20251220106737
 ---
