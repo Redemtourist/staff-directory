@@ -1,5 +1,6 @@
 title: Onward Oil & Gas Limited – Staff Directory
 markdown: kramdown
+baseurl: "/staff-directory"  # ADD THIS LINE
 
 collections:
   staff:
