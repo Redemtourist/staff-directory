@@ -42,7 +42,6 @@ img.save('assets/qr/${filename}.png')
 print('Generated QR for: $filename')
 "
           done
-
       - name: Commit QR codes
         run: |
           git config user.name "github-actions[bot]"
