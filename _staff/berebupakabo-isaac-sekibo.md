@@ -1,5 +1,5 @@
 ---
 layout: staff
-name: Berebupakabo Isaac Sekibo
-location: 20251220106737
+name: Applicant; Berebupakabo Isaac Sekibo
+location: Application ID; 20251220106737
 ---
