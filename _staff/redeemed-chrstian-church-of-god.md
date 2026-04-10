@@ -1,6 +1,6 @@
 ---
 layout: staff
-name: Redeemed Christian Church of God
-location: Application Number - 20251220106739
-application_id: RT
+name: Applicant - Redeemed Christian Church of God
+location: Application Number - 20251220106768
+application_id: Application ID - RRT10000329008
 ---
