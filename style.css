@@ -37,15 +37,12 @@ body {
   text-align: center;
   border-radius: 18px;
 
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
   border: 2px solid var(--staff-accent);
-  box-shadow:
-    0 25px 50px rgba(0,0,0,0.35),
-    0 0 0 1px rgba(255,255,255,0.25),
-    inset 0 1px 0 rgba(255,255,255,0.3);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 }
 
 /* ================================
@@ -61,7 +58,7 @@ body {
 .location {
   font-size: 18px;
   line-height: 1.7;
-  color: rgba(255,255,255,0.9);
+  color: rgba(0, 0, 0, 0.75);;
 }
 
 .date {
