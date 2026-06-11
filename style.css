@@ -55,19 +55,22 @@ body {
   margin: 0 0 22px;
   font-size: 30px;
   letter-spacing: 0.8px;
-  color: var(--staff-accent);
+  color: #000;
+  font-family: "Times New Roman", Times, serif; /* added */
 }
 
 .location {
   font-size: 18px;
   line-height: 1.7;
-  color: rgba(0, 0, 0, 0.75);;
+  color: #000;
+  font-family: "Times New Roman", Times, serif; /* added */
 }
 
 .date {
   margin-top: 6px;
   font-size: 0.9rem;
-  color: color-mix(in srgb, var(--staff-accent), #000 40%);
+  color: #000;
+  font-family: "Times New Roman", Times, serif; /* added */
 }
 
 /* ================================
