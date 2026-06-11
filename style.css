@@ -55,19 +55,19 @@ body {
   margin: 0 0 22px;
   font-size: 30px;
   letter-spacing: 0.8px;
-  color: #000;
+  color: var(--staff-accent);
 }
 
 .location {
   font-size: 18px;
   line-height: 1.7;
-  color: #000;
+  color: rgba(0, 0, 0, 0.75);;
 }
 
 .date {
   margin-top: 6px;
   font-size: 0.9rem;
-  color: #000;
+  color: color-mix(in srgb, var(--staff-accent), #000 40%);
 }
 
 /* ================================
